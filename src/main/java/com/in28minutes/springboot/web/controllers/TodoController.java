@@ -2,8 +2,6 @@ package com.in28minutes.springboot.web.controllers;
 
 import com.in28minutes.springboot.web.model.Todo;
 import com.in28minutes.springboot.web.services.TodoService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,9 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-@SessionAttributes("name")
 public class TodoController {
-    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     TodoService service;
@@ -41,7 +37,6 @@ public class TodoController {
     }
 
     private String getLoggedInUserName() {
-//        return (String) modelMap.get("name");
         Object principal =
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -60,7 +55,6 @@ public class TodoController {
     public String showAddTodosPage(ModelMap model) {
         model.addAttribute("todo", new Todo(0, getLoggedInUserName(), "",
                 new Date(), false));
-//        modelMap.put("todos",service.retrieveTodos("in28Minutes"));
         return "todo";
     }
     @RequestMapping(value = "/add-todo",method = RequestMethod.POST)
